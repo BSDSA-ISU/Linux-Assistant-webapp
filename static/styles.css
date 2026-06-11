@@ -1,0 +1,177 @@
+/* ==========================================================================
+   Gemini Live Workspace - Cyber-Premium Theme
+   ========================================================================== */
+
+:root {
+    --bg-main: #0B0F19;         /* Rich, ultra-dark blue/gray background */
+    --bg-surface: #161B26;      /* Slightly lighter surface color for cards/header */
+    --bg-input: #0F131C;        /* Dark, clean input field */
+    
+    /* Accents & Text */
+    --accent-primary: #818CF8;  /* Soft Indigo/Gemini Blue */
+    --accent-secondary: #EC4899;/* Punchy Magenta/Pink for subtle highlights */
+    --text-main: #F3F4F6;       /* Crisp off-white */
+    --text-muted: #9CA3AF;      /* Soft gray for subtext/meta */
+    
+    /* Chat Bubbles */
+    --bubble-user: linear-gradient(135deg, #6366F1, #4F46E5); /* Deep vibrant indigo gradient */
+    --bubble-model: #1E2533;    /* Clean dark grey-blue */
+}
+
+/* --- Base Overrides --- */
+body {
+    background-color: var(--bg-main) !important;
+    color: var(--text-main);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+/* --- Header --- */
+header.bg-white {
+    background-color: var(--bg-surface) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+}
+
+header span {
+    color: var(--text-main) !important;
+    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- Chat Container & Messages --- */
+#chat-box {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+/* Base style for all message bubbles */
+#chat-box > div {
+    border-radius: 1rem !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* User Message Bubble */
+#chat-box > div.bg-gray-800 {
+    background: var(--bubble-user) !important;
+    color: #FFFFFF !important;
+    border-bottom-right-radius: 0.25rem !important; /* Distinct bubble tail */
+}
+
+/* Model/AI Message Bubble */
+#chat-box > div.bg-gray-200 {
+    background-color: var(--bubble-model) !important;
+    color: var(--text-main) !important;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-bottom-left-radius: 0.25rem !important; /* Distinct bubble tail */
+}
+
+/* --- Typography / Markdown Prose Overrides --- */
+.prose {
+    color: var(--text-main) !important;
+}
+
+.prose strong {
+    color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+.prose p { 
+    margin-bottom: 0.75rem; 
+}
+
+.prose p:last-child { 
+    margin-bottom: 0; 
+}
+
+/* Inline Backtick Code (`like this`) */
+.prose :not(pre) > code { 
+    background-color: rgba(255, 255, 255, 0.1) !important; 
+    color: #F43F5E !important; /* Rose accent for inline code readability */
+    padding: 0.2rem 0.4rem !important; 
+    border-radius: 0.375rem !important; 
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+    font-size: 0.875em !important;
+}
+
+/* Prism Code Blocks */
+.prose pre[class*="language-"] { 
+    background: #090D16 !important;
+    padding: 1rem !important; 
+    border-radius: 0.75rem !important; 
+    margin: 1rem 0 !important; 
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- Input Footer Area --- */
+div.bg-white.border-t {
+    background-color: var(--bg-main) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+#user-input {
+    background-color: var(--bg-input) !important;
+    color: var(--text-main) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.2s ease;
+}
+
+#user-input:focus {
+    border-color: var(--accent-primary) !important;
+    box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2) !important;
+}
+
+/* --- Buttons --- */
+/* Send Button */
+#chat-form button[type="submit"] {
+    background-color: var(--accent-primary) !important;
+    color: #0B0F19 !important;
+    font-weight: 600;
+    border-radius: 0.75rem !important;
+    transition: all 0.2s ease;
+}
+
+#chat-form button[type="submit"]:hover {
+    background-color: #A5B4FC !important; /* Slightly lighter shade */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(129, 140, 248, 0.3);
+}
+
+/* Clear Chat Button */
+#clear-btn {
+    background-color: rgba(239, 68, 68, 0.1) !important;
+    color: #EF4444 !important;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 0.5rem !important;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+#clear-btn:hover {
+    background-color: #EF4444 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+/* --- Webkit Scrollbars --- */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 9999px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
