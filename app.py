@@ -10,6 +10,8 @@ import glob
 from flask_session import Session
 import shlex
 
+
+
 CURRENTTIME = datetime.now()
 
 load_dotenv()
@@ -29,7 +31,8 @@ Session(app)                               # <--- Initialize the extension
 # ----------------------------------------
 
 # Using the performant gemini-3.5-flash as the base driver 3.1 flash lite for attitude
-MODEL_ID = "gemini-3.1-flash-lite"
+# MODEL_ID = "gemma-4-26b-a4b-it"
+MODEL_ID = "gemini-3.1-flash-lite-preview"
 
 # ==========================================
 # 1. CLEANED SEARCH API
@@ -147,6 +150,12 @@ def index():
     chat_history = session.get('chat_history', [])
     return render_template('index.html', chat_history=chat_history)
 
+# Add standard color codes to make your terminal scannable at a glance
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+CYAN = "\033[96m"
+RESET = "\033[0m"
+
 @app.route('/api/chat', methods=['POST'])
 def chat():
     data = request.get_json() or {}
@@ -159,11 +168,9 @@ def chat():
         session['chat_history'] = []
 
     try:
-        # Ai Instruction
         with open("./config/gemini-chan.txt", "r", encoding="utf-8") as e:
             linux_instructions = e.read()
 
-        # Reconstruct the chat with Google GenAI
         chat_session = client.chats.create(
             model=MODEL_ID,
             history=session['chat_history'],
@@ -173,8 +180,22 @@ def chat():
             )
         )
 
+        # Fire request
         response = chat_session.send_message(user_message)
         
+        # --- TERMINAL DEBUGGER ---
+        meta = response.usage_metadata
+        if meta:
+            p_tokens = getattr(meta, 'prompt_token_count', 0)
+            c_tokens = getattr(meta, 'candidates_token_count', 0)
+            t_tokens = getattr(meta, 'total_token_count', 0)
+            
+            print(f"\n⚡ {CYAN}[Gemini Token Debugger]{RESET}")
+            print(f"├─ Input (Prompt + History + Tools): {YELLOW}{p_tokens}{RESET}")
+            print(f"├─ Output (Generation):              {GREEN}{c_tokens}{RESET}")
+            print(f"└─ Total Context Window Used:        {CYAN}{t_tokens} / 1,048,576{RESET}\n")
+        # -------------------------
+
         # Serialize history back to storage
         updated_history = []
         for content in chat_session.get_history():
@@ -184,12 +205,14 @@ def chat():
                 'parts': parts_list
             })
             
-        # This now saves to your local disk storage instead of a 4KB cookie header!
         session['chat_history'] = updated_history
+        
+        # Return only the text to the frontend frontend (no debug payload leak)
         return jsonify({'response': response.text})
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
 
 @app.route('/api/clear', methods=['POST'])
 def clear():
