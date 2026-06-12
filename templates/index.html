@@ -88,6 +88,13 @@ renderer.link = ({ href, title, text }) => {
 };
 marked.setOptions({ renderer: renderer });
 
+// Add this right below where you customized renderer.link
+renderer.image = ({ href, title, text }) => {
+    const titleAttr = title ? ` title="${title}"` : '';
+    // loading="lazy" optimizes performance for long chat histories
+    return `<img src="${href}" alt="${text}"${titleAttr} loading="lazy" class="max-w-full h-auto rounded-md my-2" />`;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const savedModelMessages = document.querySelectorAll('.historical-model-msg');
     
