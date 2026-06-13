@@ -9,8 +9,9 @@ from dotenv import load_dotenv
 import glob
 from flask_session import Session
 import shlex
+from goodies.tools import web_news_search, clean_session, web_search, image_search
 
-
+clean_session()
 
 CURRENTTIME = datetime.now()
 
@@ -33,45 +34,6 @@ Session(app)                               # <--- Initialize the extension
 # Using the performant gemini-3.5-flash as the base driver 3.1 flash lite for attitude
 # MODEL_ID = "gemma-4-26b-a4b-it"
 MODEL_ID = "gemini-3.1-flash-lite-preview"
-
-# ==========================================
-# 1. CLEANED SEARCH API
-# ==========================================
-
-def web_search(query: str) -> list[dict]:
-    """
-    Searches the live web for general information, guides, and articles. 
-    Returns a list of dictionaries with title, href, and body.
-    """
-    print("Gemini is searching text:", query)
-    try:
-        return DDGS().text(query, max_results=22)
-    except Exception as e:
-        print(f"Text search failed: {e}")
-        return []
-
-def web_news_search(query: str) -> list[dict]:
-    """
-    Searches the live web specifically for recent news articles, breaking updates, 
-    and press releases. Use this if the user asks for 'news', 'latest events', or 'recent updates'.
-    """
-    print("Gemini is searching NEWS:", query)
-    try:
-        # DDGS().news returns results with 'title', 'url', 'body', 'date', and 'source'
-        results = DDGS().news(query, max_results=10)
-        
-        # Format it cleanly so Gemini gets a uniform list of results
-        formatted_results = []
-        for r in results:
-            formatted_results.append({
-                "title": r.get("title"),
-                "href": r.get("url"), # Renamed url to href to keep it consistent for your UI links
-                "body": r.get("body")
-            })
-        return formatted_results
-    except Exception as e:
-        print(f"News search failed: {e}")
-        return []
 
 def cmd(command: str) -> list[dict]:
     """
@@ -176,7 +138,7 @@ def chat():
             history=session['chat_history'],
             config=types.GenerateContentConfig(
                 system_instruction=linux_instructions,
-                tools=[web_search, web_news_search, cmd],
+                tools=[web_search, web_news_search, cmd, image_search],
             )
         )
 
@@ -208,6 +170,7 @@ def chat():
         session['chat_history'] = updated_history
         
         # Return only the text to the frontend frontend (no debug payload leak)
+        print(response.text)
         return jsonify({'response': response.text})
 
     except Exception as e:
