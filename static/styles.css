@@ -1,74 +1,89 @@
-/* ==========================================================================
-   Gemini Live Workspace - Cyber-Premium Theme
-   ========================================================================== */
-
 :root {
-    --bg-main: #0B0F19;         /* Rich, ultra-dark blue/gray background */
-    --bg-surface: #161B26;      /* Slightly lighter surface color for cards/header */
-    --bg-input: #0F131C;        /* Dark, clean input field */
+    --bg-main: #060913;          /* Deep obsidian space */
+    --bg-surface: rgba(15, 22, 42, 0.65); /* Translucent glass surface */
+    --bg-card: #0d1527;          /* Solid dark layout card */
+    --bg-input: #090f1d;         /* Deep deck input area */
     
-    /* Accents & Text */
-    --accent-primary: #818CF8;  /* Soft Indigo/Gemini Blue */
-    --accent-secondary: #EC4899;/* Punchy Magenta/Pink for subtle highlights */
-    --text-main: #F3F4F6;       /* Crisp off-white */
-    --text-muted: #9CA3AF;      /* Soft gray for subtext/meta */
+    /* Accents & Brand Glows */
+    --accent-primary: #818CF8;   /* Soft Electric Indigo */
+    --accent-secondary: #F43F5E; /* Vibrant Cyber Rose */
+    --accent-cyber: #06B6D4;     /* Tech Cyan */
     
-    /* Chat Bubbles */
-    --bubble-user: linear-gradient(135deg, #6366F1, #4F46E5); /* Deep vibrant indigo gradient */
-    --bubble-model: #1E2533;    /* Clean dark grey-blue */
+    /* Typography */
+    --text-main: #F3F4F6;        /* High-contrast off-white */
+    --text-muted: #9CA3AF;       /* Clean silver-gray */
+    
+    /* Chat Gradients & Layers */
+    --bubble-user: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
+    --bubble-model: #111827;     /* Clean dark metallic gray */
+    --border-glow: rgba(129, 140, 248, 0.15);
 }
 
-/* --- Base Overrides --- */
+/* --- Global Reset & Core Animations --- */
 body {
     background-color: var(--bg-main) !important;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.05) 0px, transparent 50%);
     color: var(--text-main);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+    letter-spacing: -0.01em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* --- Header --- */
+/* --- Floating Header with Glassmorphism --- */
 header.bg-white {
     background-color: var(--bg-surface) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7) !important;
 }
 
 header span {
-    color: var(--text-main) !important;
-    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+    font-weight: 800 !important;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #FFF 20%, var(--accent-primary) 60%, var(--accent-cyber) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* --- Chat Container & Messages --- */
+/* --- Chat Interface Layout --- */
 #chat-box {
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+    padding-bottom: 2rem !important;
 }
 
-/* Base style for all message bubbles */
+/* Base style for message bubbles */
 #chat-box > div {
-    border-radius: 1rem !important;
-    font-size: 0.95rem !important;
-    line-height: 1.5 !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    position: relative;
+    border-radius: 1.25rem !important;
+    font-size: 0.9375rem !important;
+    line-height: 1.6 !important;
+    padding: 1rem 1.25rem !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24) !important;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* User Message Bubble */
 #chat-box > div.bg-gray-800 {
     background: var(--bubble-user) !important;
     color: #FFFFFF !important;
-    border-bottom-right-radius: 0.25rem !important; /* Distinct bubble tail */
+    border-bottom-right-radius: 0.25rem !important;
+    box-shadow: 0 8px 20px -4px rgba(99, 102, 241, 0.35) !important;
 }
 
 /* Model/AI Message Bubble */
 #chat-box > div.bg-gray-200 {
     background-color: var(--bubble-model) !important;
     color: var(--text-main) !important;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    border-bottom-left-radius: 0.25rem !important; /* Distinct bubble tail */
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-bottom-left-radius: 0.25rem !important;
 }
 
-/* --- Typography / Markdown Prose Overrides --- */
+/* --- Markdown Typography Pro Customization --- */
 .prose {
     color: var(--text-main) !important;
 }
@@ -79,88 +94,111 @@ header span {
 }
 
 .prose p { 
-    margin-bottom: 0.75rem; 
+    margin-bottom: 0.85rem; 
 }
 
 .prose p:last-child { 
     margin-bottom: 0; 
 }
 
-/* Inline Backtick Code (`like this`) */
+/* Sophisticated Custom Lists */
+.prose ul, .prose ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #E5E7EB;
+}
+
+.prose li::marker {
+    color: var(--accent-primary) !important;
+}
+
+/* Premium Inline Code Badges */
 .prose :not(pre) > code { 
-    background-color: rgba(255, 255, 255, 0.1) !important; 
-    color: #F43F5E !important; /* Rose accent for inline code readability */
-    padding: 0.2rem 0.4rem !important; 
-    border-radius: 0.375rem !important; 
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
-    font-size: 0.875em !important;
+    background-color: rgba(129, 140, 248, 0.12) !important; 
+    color: #A5B4FC !important;
+    padding: 0.18rem 0.4rem !important; 
+    border-radius: 0.5rem !important; 
+    border: 1px solid rgba(129, 140, 248, 0.2) !important;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+    font-size: 0.85em !important;
+    font-weight: 500 !important;
 }
 
-/* Prism Code Blocks */
+/* High-End Prism Container Panels */
 .prose pre[class*="language-"] { 
-    background: #090D16 !important;
-    padding: 1rem !important; 
-    border-radius: 0.75rem !important; 
-    margin: 1rem 0 !important; 
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: #070a12 !important;
+    padding: 1.25rem !important; 
+    border-radius: 0.85rem !important; 
+    margin: 1.25rem 0 !important; 
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.8), 0 4px 12px rgba(0,0,0,0.5) !important;
 }
 
-/* --- Input Footer Area --- */
+/* --- Dynamic Input Footer Deck --- */
 div.bg-white.border-t {
-    background-color: var(--bg-main) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background-color: transparent !important;
+    background-image: linear-gradient(to top, var(--bg-main) 80%, transparent) !important;
+    border-top: none !important;
+    padding-top: 1.5rem !important;
 }
 
 #user-input {
     background-color: var(--bg-input) !important;
     color: var(--text-main) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 0.75rem !important;
-    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 1rem !important;
+    padding: 0.85rem 1.25rem !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 #user-input:focus {
     border-color: var(--accent-primary) !important;
-    box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2) !important;
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15), 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+    outline: none !important;
 }
 
-/* --- Buttons --- */
-/* Send Button */
+/* --- Premium Buttons --- */
+/* Action / Send Button */
 #chat-form button[type="submit"] {
-    background-color: var(--accent-primary) !important;
-    color: #0B0F19 !important;
+    background: linear-gradient(135deg, var(--accent-primary), #6366F1) !important;
+    color: #FFFFFF !important;
     font-weight: 600;
-    border-radius: 0.75rem !important;
-    transition: all 0.2s ease;
+    border-radius: 1rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3) !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #chat-form button[type="submit"]:hover {
-    background-color: #A5B4FC !important; /* Slightly lighter shade */
+    background: linear-gradient(135deg, #A5B4FC, var(--accent-primary)) !important;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(129, 140, 248, 0.3);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45) !important;
 }
 
-/* Clear Chat Button */
+/* Minimalist Utility Destructive Button */
 #clear-btn {
-    background-color: rgba(239, 68, 68, 0.1) !important;
-    color: #EF4444 !important;
-    border: 1px solid rgba(239, 68, 68, 0.2);
-    border-radius: 0.5rem !important;
-    font-weight: 500;
-    text-transform: none;
-    letter-spacing: normal;
+    background-color: rgba(244, 63, 94, 0.08) !important;
+    color: var(--accent-secondary) !important;
+    border: 1px solid rgba(244, 63, 94, 0.16) !important;
+    border-radius: 0.625rem !important;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
 }
 
 #clear-btn:hover {
-    background-color: #EF4444 !important;
+    background-color: var(--accent-secondary) !important;
     color: #FFFFFF !important;
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    border-color: transparent !important;
+    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.25);
 }
 
-/* --- Webkit Scrollbars --- */
+/* --- Elegant Minimal Scrollbars --- */
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -168,21 +206,20 @@ div.bg-white.border-t {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1) !important;
-    border-radius: 9999px !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-radius: 10px !important;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
+    background: rgba(255, 255, 255, 0.25) !important;
 }
 
-/* qol */
-/* Ensure markdown images scale nicely inside the chat bubbles */
+/* Image scaling mechanics within prose blocks */
 .prose img {
     max-width: 100%;
     height: auto;
-    border-radius: 0.375rem; /* Rounded corners to match your UI */
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 1rem 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
-

@@ -1,15 +1,35 @@
 from datetime import datetime
 import os
-import subprocess
-from ddgs import DDGS
 from flask import Flask, render_template, request, jsonify, session
 from google import genai
 from google.genai import types
 from dotenv import load_dotenv
-import glob
 from flask_session import Session
 import shlex
-from goodies.tools import web_news_search, clean_session, web_search, image_search
+from goodies.tools import config_loader, web_news_search, clean_session, web_search, image_search, cmd
+
+config = config_loader()
+
+# for config
+TOOL_MAPPING = {
+    "web_search": web_search,
+    "web_news_search": web_news_search,
+    "cmd": cmd,
+    "image_search": image_search
+}
+
+# Applies the configuration tool
+# This looks at each string in config['tools'] and fetches the corresponding variable
+active_tools = []
+
+for tool_name in config["tools"]:
+    if tool_name in TOOL_MAPPING:
+        
+        actual_tool_object = TOOL_MAPPING[tool_name]
+        active_tools.append(actual_tool_object)
+
+print("Using:", active_tools)
+print('Available tools are: ["web_search", "web_news_search", "cmd", "image_search"]')
 
 clean_session()
 
@@ -35,78 +55,6 @@ Session(app)                               # <--- Initialize the extension
 # MODEL_ID = "gemma-4-26b-a4b-it"
 MODEL_ID = "gemini-3.1-flash-lite-preview"
 
-def cmd(command: str) -> list[dict]:
-    """
-    Runs a command on linux like timedatectl, uptime, date etc.
-    Do not run dangerous, destructive, or file manipulation commands!
-    """
-    # 1. Block shell chaining and redirection symbols entirely
-    DANGEROUS_SYMBOLS = [";", "&&", "||", "|", "`", "$", ">", "<"]
-    if any(symbol in command for symbol in DANGEROUS_SYMBOLS):
-        return [{"error": "Execution denied: Shell chaining or redirection symbols are forbidden."}]
-
-    # 2. Parse the command safely to isolate the primary executable
-    try:
-        parsed_command = shlex.split(command)
-        if not parsed_command:
-            return [{"error": "Empty command."}]
-        base_binary = parsed_command[0].lower()
-    except Exception:
-        return [{"error": "Invalid command formatting."}]
-
-    # 3. Comprehensive Blacklist of forbidden binaries
-    FORBIDDEN_BINARIES = {
-        # File destruction / modification
-        "rm", "shred", "dd", "chmod", "chown", "mkfs", "fdisk", "parted",
-        # Shell spawning / Escaping
-        "sh", "bash", "zsh", "csh", "tcsh", "tmux", "screen", "python", "perl",
-        # Privilege escalation
-        "sudo", "su", "passwd", "chsh",
-        # Network / Exfiltration hazards
-        "curl", "wget", "nc", "netcat", "nmap", "ssh", "ftp", "scp", "rsync",
-        # Package managers (to prevent unwanted installs/removals)
-        "pacman", "yay", "paru", "apt", "dnf", "pip",
-        # Text editors (which hang the terminal waiting for user input)
-        "nano", "vim", "vi", "emacs", "neovim"
-    }
-
-    if base_binary in FORBIDDEN_BINARIES:
-        return [{"error": f"Execution denied: '{base_binary}' is a forbidden command."}]
-
-    # NEW: Safely expand wildcards (globs) if present in the arguments
-    final_args = [parsed_command[0]]
-    for arg in parsed_command[1:]:
-        if "*" in arg or "?" in arg:
-            expanded = glob.glob(arg)
-            if expanded:
-                final_args.extend(expanded)
-            else:
-                # If no files match the wildcard, pass it literally so the binary fails naturally
-                final_args.append(arg)
-        else:
-            final_args.append(arg)
-
-    print("Gemini is running:", " ".join(final_args))
-    
-    try:
-        result = subprocess.run(
-            final_args,  # Pass the expanded arguments list here
-            capture_output=True,
-            text=True,
-            timeout=5
-        )
-        
-        output = result.stdout if result.stdout else result.stderr
-        
-        return [
-            {"command": command, "output": line}
-            for line in output.splitlines()
-        ]
-    except subprocess.TimeoutExpired:
-        return [{"error": "Command timed out."}]
-    except Exception as e:
-        return [{"error": f"Execution failed: {str(e)}"}]
-
 @app.route('/')
 def index():
     chat_history = session.get('chat_history', [])
@@ -130,7 +78,7 @@ def chat():
         session['chat_history'] = []
 
     try:
-        with open("./config/gemini-chan.txt", "r", encoding="utf-8") as e:
+        with open("./instructions/gemini-chan.txt", "r", encoding="utf-8") as e:
             linux_instructions = e.read()
 
         chat_session = client.chats.create(
@@ -138,7 +86,7 @@ def chat():
             history=session['chat_history'],
             config=types.GenerateContentConfig(
                 system_instruction=linux_instructions,
-                tools=[web_search, web_news_search, cmd, image_search],
+                tools=active_tools,
             )
         )
 
@@ -161,7 +109,7 @@ def chat():
         # Serialize history back to storage
         updated_history = []
         for content in chat_session.get_history():
-            parts_list = [{'text': part.text} for part in content.parts if part.text]
+            parts_list = [{'text': part.text} for part in content.parts if part.text]  # pyright: ignore[reportOptionalIterable]
             updated_history.append({
                 'role': content.role,
                 'parts': parts_list
