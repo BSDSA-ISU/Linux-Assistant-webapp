@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemini GenAI WebUI</title>
+    <title>Hourai Chat</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/static/favico.png">
@@ -13,30 +13,31 @@
 </head>
 <body class="bg-gray-100 h-screen flex flex-col justify-between">
 
-    <header class="bg-white shadow p-4 flex justify-between items-center max-w-3xl w-full mx-auto mt-2 rounded-lg">
-        <span class="font-bold text-xl text-gray-800">Gemini Live Workspace</span>
+    <header class="bg-white shadow p-4 flex justify-between items-center w-full px-6">
+        <span class="font-bold text-xl text-gray-800">Hourai Chat Workspace</span>
         <button id="clear-btn" class="text-xs bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition">
             Clear Chat
         </button>
     </header>
 
-<div id="chat-box" class="flex-1 overflow-y-auto p-6 space-y-4 max-w-3xl w-full mx-auto">
+<div id="chat-box" class="flex-1 overflow-y-auto p-6 space-y-4 w-full">
     
-    <div class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xl shadow-sm prose prose-sm max-w-none">
+    <div class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-4xl shadow-sm prose prose-sm max-w-none">
         Hello! I am powered by Gemini. Ask me anything!
     </div>
 
-    {% for message in chat_history %}
-        {% if message.role == 'user' %}
-            <div class="bg-gray-800 text-white p-3 rounded-lg max-w-xl ml-auto shadow-sm" style="white-space: pre-wrap;">{{ message.parts[0].text }}</div>
-        {% else %}
-            <div class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xl shadow-sm prose prose-sm max-w-none historical-model-msg" style="display: none;">{{ message.parts[0].text }}</div>
-        {% endif %}
-    {% endfor %}
+{% for message in chat_history %}
+    {% if message.role == 'user' %}
+        <div class="bg-gray-800 text-white p-3 rounded-lg max-w-4xl ml-auto shadow-sm" style="white-space: pre-wrap;">{{ message.parts[0].text }}</div>
+    {% else %}
+        <div class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-4xl shadow-sm prose prose-sm max-w-none historical-model-msg" style="display: none;">{{ message.parts[0].text }}</div>
+    {% endif %}
+{% endfor %}
+
 </div>
 
     <div class="bg-white border-t p-4">
-        <form id="chat-form" class="max-w-3xl mx-auto flex gap-4 items-end">
+        <form id="chat-form" class="w-full px-2 flex gap-4 items-end">
             <textarea id="user-input" placeholder="Ask Gemini... (Enter to send, Shift+Enter for newline)" rows="1"
                    class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 resize-none overflow-y-auto max-h-32"></textarea>
             <button type="submit" class="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-900 transition h-10">
@@ -138,17 +139,18 @@ function appendMessage(text, role) {
     if (role === 'user') {
         msgDiv.style.whiteSpace = "pre-wrap"; 
         msgDiv.innerText = text;
-        msgDiv.className = "bg-gray-800 text-white p-3 rounded-lg max-w-xl ml-auto shadow-sm";
+        // Changed max-w-xl to max-w-4xl
+        msgDiv.className = "bg-gray-800 text-white p-3 rounded-lg max-w-4xl ml-auto shadow-sm";
     } else {
         msgDiv.innerHTML = marked.parse(text);
-        msgDiv.className = "bg-gray-200 text-gray-800 p-3 rounded-lg max-w-2xl shadow-sm prose prose-sm max-w-none";
-        
-        // 4. Force Prism to parse and color code snippets inside this specific element
+        // Changed max-w-2xl to max-w-4xl
+        msgDiv.className = "bg-gray-200 text-gray-800 p-3 rounded-lg max-w-4xl shadow-sm prose prose-sm max-w-none";
+
         setTimeout(() => {
             Prism.highlightAllUnder(msgDiv);
         }, 10);
     }
-    
+
     chatBox.appendChild(msgDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 }

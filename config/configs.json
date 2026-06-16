@@ -1,0 +1,4 @@
+{
+    "debugging_mode": true,
+    "tools": ["web_search", "web_news_search", "cmd", "image_search"]
+}
