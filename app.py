@@ -6,7 +6,7 @@ from google.genai import types
 from dotenv import load_dotenv
 from flask_session import Session
 import shlex
-from goodies.tools import config_loader, web_news_search, clean_session, web_search, image_search, cmd
+from goodies.tools import config_loader, open_site_or_file, video_search, web_news_search, clean_session, web_search, image_search, cmd
 
 config = config_loader()
 
@@ -15,7 +15,9 @@ TOOL_MAPPING = {
     "web_search": web_search,
     "web_news_search": web_news_search,
     "cmd": cmd,
-    "image_search": image_search
+    "image_search": image_search,
+    "open_site_or_file": open_site_or_file,
+    "video_search": video_search
 }
 
 # Applies the configuration tool
@@ -29,7 +31,7 @@ for tool_name in config["tools"]:
         active_tools.append(actual_tool_object)
 
 print("Using:", active_tools)
-print('Available tools are: ["web_search", "web_news_search", "cmd", "image_search"]')
+print('Available tools are: ["web_search", "web_news_search", "video_search", "cmd", "image_search"]')
 
 clean_session()
 
@@ -95,7 +97,7 @@ def chat():
         
         # --- TERMINAL DEBUGGER ---
         meta = response.usage_metadata
-        if meta:
+        if meta and config["debugging_mode"]:
             p_tokens = getattr(meta, 'prompt_token_count', 0)
             c_tokens = getattr(meta, 'candidates_token_count', 0)
             t_tokens = getattr(meta, 'total_token_count', 0)
@@ -124,6 +126,10 @@ def chat():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
+@app.route('/sw.js')
+def serve_sw():
+    return app.send_static_file('sw.js') # If sw.js is sitting inside /static/
 
 @app.route('/api/clear', methods=['POST'])
 def clear():

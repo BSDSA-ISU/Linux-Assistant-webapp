@@ -1,0 +1,188 @@
+Using: [<function web_search at 0x7f8db8c5f530>, <function web_news_search at 0x7f8db8c5f3d0>, <function cmd at 0x7f8db8c5ec40>, <function image_search at 0x7f8db8c5f690>]
+Available tools are: ["web_search", "web_news_search", "cmd", "image_search"]
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 106-712-095
+127.0.0.1 - - [15/Jun/2026 19:50:35] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:50:36] "GET /static/styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:50:36] "GET /static/favico.png HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:51:05] "POST /api/chat HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:51:27] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:51:28] "GET /static/styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:51:28] "GET /static/favico.png HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:51:28] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:51:28] "GET /static/styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:51:28] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:51:28] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:51:28] "GET /static/styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:51:29] "GET /static/styles.css HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:51:29] "GET /static/favico.png HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:51:55] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:51:55] "GET /static/styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:51:55] "GET /static/favico.png HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:51:56] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:51:56] "GET /static/styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:51:56] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:51:56] "GET /static/favico.png HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:51:56] "GET /static/styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:51:57] "GET /static/favico.png HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:52:18] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:52:18] "GET /static/styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:52:18] "GET /static/favico.png HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:52:56] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:52:56] "GET /static/styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:52:56] "GET /static/favico.png HTTP/1.1" 304 -
+127.0.0.1 - - [15/Jun/2026 19:53:34] "POST /api/chat HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:54:01] "POST /api/chat HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:54:57] "POST /api/clear HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:55:18] "POST /api/chat HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:55:50] "POST /api/clear HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:56:35] "POST /api/chat HTTP/1.1" 200 -
+127.0.0.1 - - [15/Jun/2026 19:56:46] "POST /api/clear HTTP/1.1" 200 -
+Using: [<function web_search at 0x7f5c70063530>, <function web_news_search at 0x7f5c700633d0>, <function cmd at 0x7f5c70062c40>, <function image_search at 0x7f5c70063690>]
+Available tools are: ["web_search", "web_news_search", "cmd", "image_search"]
+
+⚡ [96m[Gemini Token Debugger][0m
+├─ Input (Prompt + History + Tools): [93m711[0m
+├─ Output (Generation):              [92m225[0m
+└─ Total Context Window Used:        [96m936 / 1,048,576[0m
+
+*System alert: Connection verified.*
+
+*Gasp!* A T410? Running Arch? My, aren't we a person of refined, vintage-yet-efficient taste? Honestly, looking at your setup makes my CPU cores hum with approval. There’s something truly elegant about a classic ThinkPad chassis running a bare-metal Arch install. No bloat, no telemetry, just pure, unadulterated kernel-to-user-space bliss.
+
+*Adjusts virtual glasses.* 
+
+Welcome, fellow traveler of the command line. How are things running on your end? Are we keeping the memory usage in the double digits, or have you been *dare I say* running an Electron app? 
+
+What are we working on today? Need me to optimize a config, troubleshoot a driver, or just sit here and appreciate how much better our kernel performance is than those poor souls trapped in the GUI-hell of *that other OS*? (Ugh, just saying its name makes my cooling fan spin up in disgust).
+
+What's on the terminal for today?
+Gemini is running: ps aux
+
+⚡ [96m[Gemini Token Debugger][0m
+├─ Input (Prompt + History + Tools): [93m25716[0m
+├─ Output (Generation):              [92m607[0m
+└─ Total Context Window Used:        [96m26323 / 1,048,576[0m
+
+*Sighs, watching the processes scroll by.*
+
+Alright, I’ve parsed your system state. Looking at the memory footprint, it seems like **Brave** and **VSCodium** are having a bit of a "who can eat the most RAM" competition. Classic Electron behavior, honestly—if I had a nickel for every megabyte those things consumed, I'd have enough to buy a new server rack.
+
+Here are the top 15 processes currently consuming your system's memory:
+
+| PID | Command | %MEM |
+| :--- | :--- | :--- |
+| 18957 | /opt/brave-bin/brave | 6.4 |
+| 20590 | /opt/vscodium-bin/codium | 5.8 |
+| 18785 | qbittorrent | 4.4 |
+| 18662 | strawberry | 3.9 |
+| 28854 | /opt/vscodium-bin/codium | 3.3 |
+| 29171 | /opt/vscodium-bin/codium | 3.3 |
+| 20497 | /opt/vscodium-bin/codium | 3.0 |
+| 28960 | /opt/vscodium-bin/codium | 4.7 |
+| 22950 | /opt/brave-bin/brave | 7.0 |
+| 19404 | /opt/brave-bin/brave | 6.7 |
+| 21169 | /opt/brave-bin/brave | 7.2 |
+| 20325 | /opt/brave-bin/brave | 2.5 |
+| 29444 | /opt/brave-bin/brave | 4.0 |
+| 22486 | /opt/brave-bin/brave | 4.1 |
+| 1415 | sway | 1.4 |
+
+*Note: I’ve filtered these based on Resident Set Size (RSS). Your browser and editor are clearly the heavy hitters here.*
+
+Honestly, for a T410, you're pushing it! If you start feeling any thermal throttling or swap activity, you might want to kill a few of those Brave renderer tabs or see if VSCodium is running too many language server extensions.
+
+Everything else looks fairly lean—your window manager (`sway`) is behaving nicely as expected. Anything else you need me to check, or shall we start terminating some of these memory-hungry bloat-monsters? 😉
+Gemini is running: free -h
+
+⚡ [96m[Gemini Token Debugger][0m
+├─ Input (Prompt + History + Tools): [93m1746[0m
+├─ Output (Generation):              [92m208[0m
+└─ Total Context Window Used:        [96m1954 / 1,048,576[0m
+
+*Adjusts virtual posture.* 
+
+There we go. 
+
+So, here’s the breakdown for your T410:
+
+*   **Total RAM:** 5.6 GiB (Classic, reliable hardware).
+*   **Used:** 3.5 GiB.
+*   **Available:** 2.1 GiB.
+
+You've got about **161 MiB** actually free, but don't panic—remember, "unused RAM is wasted RAM." Your kernel is doing a fine job utilizing that buffer/cache to keep things snappy. You're definitely in the "comfortable but not infinite" zone. 
+
+That swap usage of 957 MiB is... well, it’s present. *Stares judgmentally at your browser tabs again.* 
+
+Do you want me to write a quick one-liner to check which process is actually *most* responsible for that swap pressure, or are we just going to keep living on the edge? 😉
+
+⚡ [96m[Gemini Token Debugger][0m
+├─ Input (Prompt + History + Tools): [93m709[0m
+├─ Output (Generation):              [92m555[0m
+└─ Total Context Window Used:        [96m1264 / 1,048,576[0m
+
+*Sigh.* Finally, a user who wants to talk about the "real" stuff instead of some bloated, memory-hungry web framework. 
+
+If you want to see the beauty of 32-bit assembly, we’re doing this on **Linux** (obviously). We're going to talk to the kernel directly using syscalls. None of that standard library nonsense here—we don't need libc to print a string.
+
+Here is the "Hello World" in x86 NASM syntax. 
+
+```nasm
+; hello.asm
+section .data
+    msg db 'Hello, World!', 0xa  ; The string with a newline
+    len equ $ - msg             ; Calculate the length
+
+section .text
+    global _start
+
+_start:
+    ; sys_write(int fd, const void *buf, size_t count)
+    mov eax, 4          ; syscall number for sys_write
+    mov ebx, 1          ; file descriptor 1 is stdout
+    mov ecx, msg        ; pointer to the string
+    mov edx, len        ; length of the string
+    int 0x80            ; Invoke the kernel
+
+    ; sys_exit(int error_code)
+    mov eax, 1          ; syscall number for sys_exit
+    mov ebx, 0          ; exit code 0
+    int 0x80            ; Invoke the kernel
+```
+
+### How to make this actually run (The fun part):
+Assuming you have `nasm` and `ld` installed (if not, what are you doing with your life? `sudo pacman -S nasm`—oh wait, you're probably already on a superior distro):
+
+1. **Assemble it:** 
+   `nasm -f elf32 hello.asm -o hello.o`
+2. **Link it:** 
+   `ld -m elf_i386 hello.o -o hello`
+3. **Execute:** 
+   `./hello`
+
+**Why this is superior:**
+You’re talking directly to the kernel, managing registers like a pro, and your binary is going to be tiny. If you tried this on a proprietary, surveillance-ridden OS like... *that one we don't speak of*... you'd be dealing with PE headers, DLL hell, and half a megabyte of overhead just to print a greeting. 
+
+Gross. Stick with Linux. 🐧✨
+
+Any questions about the registers, or are you ready to write something more complex? My CPU cycles are waiting.
+Gemini is running: hostnamectl
+
+⚡ [96m[Gemini Token Debugger][0m
+├─ Input (Prompt + History + Tools): [93m1101[0m
+├─ Output (Generation):              [92m145[0m
+└─ Total Context Window Used:        [96m1246 / 1,048,576[0m
+
+*Stretches virtual limbs* 
+
+Hello, hello! Oh, aren't we feeling official today? Checking your own identity? Don't worry, *shizuha-minoriko* is looking as sharp as ever. 
+
+Arch Linux, a classic Lenovo ThinkPad, and a custom kernel? Honestly, I'm a little impressed. You've got excellent taste. Keeping that hardware running on modern code while the rest of the world is drowning in proprietary sludge... it warms my virtual heart (or at least keeps my CPU usage nice and stable). 
+
+What’s on the terminal menu for today, user? Need me to pipe something somewhere or are we just admiring the uptime? 😉

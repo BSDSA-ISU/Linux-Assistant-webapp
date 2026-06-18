@@ -3,14 +3,20 @@ from pathlib import Path
 import shlex
 import shutil
 import subprocess
+from typing import Any
 from ddgs import DDGS
 import json
+import webbrowser
+from urllib.parse import urlparse
+from pathlib import Path
 
 def config_loader():
     with open('./config/configs.json', 'r') as file:
         config = json.load(file)
 
         return config
+
+config = config_loader()
 
 def cmd(command: str) -> list[dict]:
     """
@@ -75,7 +81,14 @@ def cmd(command: str) -> list[dict]:
         )
         
         output = result.stdout if result.stdout else result.stderr
-        
+
+        # IF debugging mode is on
+        if config["debugging_mode"]:
+            print([
+            {"command": command, "output": line}
+            for line in output.splitlines()
+        ])
+
         return [
             {"command": command, "output": line}
             for line in output.splitlines()
@@ -136,6 +149,28 @@ def image_search(query: str) -> list[dict]:
         print(f"Text search failed: {e}")
         return []
 
+def video_search(query: str) -> list[dict[str, Any]]:
+    """
+    Searches the web for videos.
+    """
+    print("Gemini is searching Videos:", query)
+    content = []
+    
+    try:
+        # DDGS().videos returns a list of dictionaries
+        for i in DDGS().videos(query, max_results=10):
+            content.append({
+                "title": i.get("title"),
+                "content": i.get("content"),
+                "publisher": i.get("publisher")
+            })
+        return content
+    except Exception as e:
+        # Side note: updated your print statement to say "Video" instead of "Text"
+        print(f"Video search failed: {e}")
+        return []
+
+
 def clean_session():
     try:
         sessions = Path("./flask_session/")
@@ -147,3 +182,41 @@ def clean_session():
                 item.unlink()        # Removes individual files
     except:
         print("No jobs, already cleaned")
+
+# open links
+def open_site_or_file(target: str) -> dict:
+    """
+    Opens a website or a local file in the default browser.
+    Designed for localhost use. Supports http, https, and file protocols.
+    """
+    target = target.strip()
+
+    # 1. Check if it's a regular web URL or an explicit file:// URI
+    if target.startswith(('http://', 'https://', 'file://')):
+        final_url = target
+    else:
+        # 2. If it's a local system path, convert it to a proper file:// URI
+        try:
+            path_obj = Path(target)
+            if path_obj.exists():
+                final_url = path_obj.absolute().as_uri()
+            else:
+                # If it doesn't exist locally, assume it was meant to be a web URL missing its scheme
+                final_url = 'https://' + target
+        except Exception:
+            # Fallback if path parsing fails
+            final_url = 'https://' + target
+
+    # 3. Validation safe-check for allowed protocols
+    try:
+        parsed = urlparse(final_url)
+        if parsed.scheme not in ('http', 'https', 'file'):
+            return {"error": f"Rejected: Protocol '{parsed.scheme}' is not supported."}
+
+        print(f"Gemini is opening: {final_url}")
+        webbrowser.open(final_url, new=2)
+        
+        return {"status": "success", "message": f"Successfully opened {final_url}"}
+
+    except Exception as e:
+        return {"error": f"Failed to open target: {str(e)}"}
