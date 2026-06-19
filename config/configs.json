@@ -1,4 +1,5 @@
 {
     "debugging_mode": true,
+    "model": "gemini-3.5-flash",
     "tools": ["web_search", "web_news_search", "cmd", "image_search", "open_site_or_file", "video_search"]
 }

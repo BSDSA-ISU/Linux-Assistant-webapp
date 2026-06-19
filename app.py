@@ -5,7 +5,6 @@ from google import genai
 from google.genai import types
 from dotenv import load_dotenv
 from flask_session import Session
-import shlex
 from goodies.tools import config_loader, open_site_or_file, video_search, web_news_search, clean_session, web_search, image_search, cmd
 
 config = config_loader()
@@ -55,7 +54,7 @@ Session(app)                               # <--- Initialize the extension
 
 # Using the performant gemini-3.5-flash as the base driver 3.1 flash lite for attitude
 # MODEL_ID = "gemma-4-26b-a4b-it"
-MODEL_ID = "gemini-3.1-flash-lite-preview"
+MODEL_ID = config["model"]
 
 @app.route('/')
 def index():
