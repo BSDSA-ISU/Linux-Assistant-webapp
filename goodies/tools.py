@@ -9,6 +9,10 @@ import json
 import webbrowser
 from urllib.parse import urlparse
 from pathlib import Path
+from google import genai
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def config_loader():
     with open('./config/configs.json', 'r') as file:
@@ -17,6 +21,11 @@ def config_loader():
         return config
 
 config = config_loader()
+
+client = genai.Client()
+
+def show_models():
+    return client.models.list()
 
 def cmd(command: str) -> list[dict]:
     """
