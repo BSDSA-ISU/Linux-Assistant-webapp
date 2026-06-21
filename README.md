@@ -1,63 +1,63 @@
-# Linux Assistent
+# Linux Assistant
+
+A web-based AI assistant interface for Linux systems, designed to bridge the gap between natural language interaction and system management.
 
 ![Minoriko](https://media1.tenor.com/m/kfCcMd9vCSgAAAAC/aki-minoriko-touhou.gif)
 
-- [Linux Assistent](#linux-assistent)
-  - [What is this?](#what-is-this)
-  - [Features](#features)
-    - [Commands](#commands)
-    - [Search](#search)
-    - [News Search](#news-search)
-  - [Peoples Involved](#peoples-involved)
-  - [Future plans](#future-plans)
-  - [This app made possible with the help of](#this-app-made-possible-with-the-help-of)
-  - [Thank you and peace out](#thank-you-and-peace-out)
-
----
-
-## What is this?
-
-its just a simple chat gui, nothin special
-
 ## Features
 
-### Commands
+- **Natural Language Interaction:** Chat with your system using the Google Gemini API.
+- **System Commands:** Execute non-destructive system commands directly from the interface.
+- **Web Search:** Perform web searches using DuckDuckGo (via `ddgs`).
+- **News Aggregation:** Fetch the latest news from the web.
 
-It can run non dangerous commands on your system directly if needed
+## Tech Stack
 
-### Search
+- **Backend:** Python (Flask)
+- **Frontend:** HTML/CSS/JavaScript
+- **AI/APIs:** Google Gemini, DuckDuckGo Search
+- **Tooling:** `uv` (package management)
 
-It can perform a simple search on the web using ddgs
+## Getting Started
 
-### News Search
+*(Note: Please update this section to reflect your specific deployment/development workflow)*
 
-it can fetch latest news in the internet using ddgs
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd linux-assistant-webapp
+   ```
 
----
+2. **Setup Environment:**
+   Ensure you have `uv` installed.
+   ```bash
+   uv sync
+   ```
 
-## Peoples Involved
+3. **Configure:**
+   Ensure your environment variables (like `GEMINI_API_KEY`) are set. Refer to `config/configs.json` for structure.
+
+4. **Run:**
+   ```bash
+   uv run python main.py
+   ```
+
+## Contributors
 
 <a href="https://github.com/BSDSA-ISU/Linux-Assistant/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=BSDSA-ISU/Linux-Assistant" />
 </a>
 
-Made with [contrib.rocks](https://contrib.rocks).
+*Made with [contrib.rocks](https://contrib.rocks).*
 
 ---
 
-## Future plans
+## License
 
-- Web Ui
+[MIT](./LICENSE)
 
-## This app made possible with the help of
+---
 
-- [python](https://python.org)
-  - [ddgs docs](https://pypi.org/project/ddgs/)
-  - [Pyside6](https://doc.qt.io/qtforpython-6/)
-  - [Google Genai](https://ai.google.dev/gemini-api/docs)
-  - [uv](https://docs.astral.sh/uv/)
-- [Google Ai studio](https://aistudio.google.com/usage)
+*Thank you and peace out!*
 
-## Thank you and peace out
-
-![Gif](https://media1.tenor.com/m/cH8iW9HL_O8AAAAC/minoriko-aki-shizuha-aki.gif)
+![Minoriko and Shizuha](https://media1.tenor.com/m/cH8iW9HL_O8AAAAC/minoriko-aki-shizuha-aki.gif)
