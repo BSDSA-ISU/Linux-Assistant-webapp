@@ -25,7 +25,10 @@ config = config_loader()
 client = genai.Client()
 
 def show_models():
-    return client.models.list()
+    print("Available text/content generation models:")
+    for model in client.models.list():
+        # In the new SDK, text/multimodal models typically use the 'generate_content' method
+        print(f"- {model.name} ({model.display_name})")
 
 def cmd(command: str) -> list[dict]:
     """
@@ -83,25 +86,24 @@ def cmd(command: str) -> list[dict]:
     
     try:
         result = subprocess.run(
-            final_args,  # Pass the expanded arguments list here
+            final_args,  
             capture_output=True,
             text=True,
             timeout=5
         )
         
-        output = result.stdout if result.stdout else result.stderr
+        # Combine stdout and stderr, and .strip() to clean up trailing newlines
+        output = (result.stdout if result.stdout else result.stderr).strip()
+
+        # Create the single unified response object
+        combined_result = [{"command": command, "output": output}]
 
         # IF debugging mode is on
         if config["debugging_mode"]:
-            print([
-            {"command": command, "output": line}
-            for line in output.splitlines()
-        ])
+            print(combined_result)
 
-        return [
-            {"command": command, "output": line}
-            for line in output.splitlines()
-        ]
+        return combined_result
+
     except subprocess.TimeoutExpired:
         return [{"error": "Command timed out."}]
     except Exception as e:
