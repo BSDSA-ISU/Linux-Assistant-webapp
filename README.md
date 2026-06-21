@@ -20,8 +20,6 @@ A web-based AI assistant interface for Linux systems, designed to bridge the gap
 
 ## Getting Started
 
-*(Note: Please update this section to reflect your specific deployment/development workflow)*
-
 1. **Clone the repository:**
    ```bash
    git clone <repository-url>
