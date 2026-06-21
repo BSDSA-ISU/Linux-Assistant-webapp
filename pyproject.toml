@@ -1,0 +1,7 @@
+[project]
+name = "linux-assistant-webapp"
+version = "0.1.0"
+description = "An AI assistant"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
