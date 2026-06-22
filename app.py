@@ -95,12 +95,8 @@ def chat():
         # Load system instructions
         with open(config["instruction"], "r", encoding="utf-8") as f:
             system_instruction_content = f.read()
-            visible_files = os.listdir(home_dir)
-            # Filter out hidden files (.) to save tokens
-            dir_snapshot = [f for f in visible_files if not f.startswith('.')]
-            fs_context = f"\n\nUser's current local home directory is: {home_dir}\nContents: {', '.join(dir_snapshot)}"    
 
-        full_instruction = system_instruction_content + fs_context
+        full_instruction = system_instruction_content + home_dir
 
         chat_session = client.chats.create(
             model=MODEL_ID,
@@ -120,7 +116,7 @@ def chat():
         # Update session history
         updated_history = []
         for content in chat_session.get_history():
-            parts = [{'text': part.text} for part in content.parts if part.text]
+            parts = [{'text': part.text} for part in content.parts if part.text]  # pyright: ignore[reportOptionalIterable]
             updated_history.append({'role': content.role, 'parts': parts})
             
         session['chat_history'] = updated_history
