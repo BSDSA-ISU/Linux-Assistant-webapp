@@ -22,6 +22,9 @@ from goodies.tools import (
 load_dotenv()
 config = config_loader()
 
+# Initialize Home path
+home_dir = os.path.expanduser("~")
+
 # Mapping for dynamic tool loading
 TOOL_MAPPING = {
     "web_search": web_search,
@@ -92,13 +95,19 @@ def chat():
         # Load system instructions
         with open(config["instruction"], "r", encoding="utf-8") as f:
             system_instruction_content = f.read()
+            visible_files = os.listdir(home_dir)
+            # Filter out hidden files (.) to save tokens
+            dir_snapshot = [f for f in visible_files if not f.startswith('.')]
+            fs_context = f"\n\nUser's current local home directory is: {home_dir}\nContents: {', '.join(dir_snapshot)}"    
+
+        full_instruction = system_instruction_content + fs_context
 
         chat_session = client.chats.create(
             model=MODEL_ID,
             history=session['chat_history'],
             config=types.GenerateContentConfig(
                 temperature=1.2,
-                system_instruction=system_instruction_content,
+                system_instruction=full_instruction,
                 tools=active_tools,
             )
         )
