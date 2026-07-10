@@ -22,7 +22,11 @@ from goodies.tools import (
 load_dotenv()
 config = config_loader()
 
+# Configs
+visible_home_dir = config["visible_home_dir"]
+
 # Initialize Home path
+
 home_dir = os.path.expanduser("~")
 
 # Mapping for dynamic tool loading
@@ -96,7 +100,10 @@ def chat():
         with open(config["instruction"], "r", encoding="utf-8") as f:
             system_instruction_content = f.read()
 
-        full_instruction = system_instruction_content + home_dir
+        if visible_home_dir:
+            full_instruction = system_instruction_content + "User Home Directory is: " + home_dir
+        else:
+            full_instruction = system_instruction_content
 
         chat_session = client.chats.create(
             model=MODEL_ID,
