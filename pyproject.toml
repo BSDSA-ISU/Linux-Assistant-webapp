@@ -12,6 +12,3 @@ dependencies = [
     "google-genai>=2.8.0",
     "ty>=0.0.58",
 ]
-
-[tool.ty.environment]
-python = "/home/kogasa/projects/.venv/bin/python"  
