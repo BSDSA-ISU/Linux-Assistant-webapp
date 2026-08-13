@@ -1,8 +1,21 @@
 # Linux Assistant
 
-A web-based AI assistant interface for Linux systems, designed to bridge the gap between natural language interaction and system management.
+- [Linux Assistant](#linux-assistant)
+  - [What is this](#what-is-this)
+  - [Features](#features)
+  - [Tech Stack](#tech-stack)
+  - [Getting Started](#getting-started)
+  - [Contributors](#contributors)
+  - [License](#license)
 
 ![Minoriko](https://media1.tenor.com/m/kfCcMd9vCSgAAAAC/aki-minoriko-touhou.gif)
+
+
+---
+
+## What is this
+
+A web-based AI assistant interface for Linux systems, designed to bridge the gap between natural language interaction and system management.
 
 ## Features
 
@@ -21,6 +34,7 @@ A web-based AI assistant interface for Linux systems, designed to bridge the gap
 ## Getting Started
 
 1. **Clone the repository:**
+
    ```bash
    git clone <repository-url>
    cd linux-assistant-webapp
@@ -28,6 +42,7 @@ A web-based AI assistant interface for Linux systems, designed to bridge the gap
 
 2. **Setup Environment:**
    Ensure you have `uv` installed.
+
    ```bash
    uv sync
    ```
@@ -36,8 +51,9 @@ A web-based AI assistant interface for Linux systems, designed to bridge the gap
    Ensure your environment variables (like `GEMINI_API_KEY`) are set. Refer to `config/configs.json` for structure.
 
 4. **Run:**
+
    ```bash
-   uv run python main.py
+   uv run python app.py
    ```
 
 ## Contributors

@@ -1,6 +1,7 @@
 {
     "debugging_mode": true,
     "instruction": "./instructions/gemini-chan.txt",
-    "model": "gemini-3.1-flash-lite-preview",
+    "model": "gemini-3.5-flash-lite",
+    "visible_home_dir": false,
     "tools": ["web_search", "web_news_search", "cmd", "image_search", "open_site_or_file", "video_search"]
 }

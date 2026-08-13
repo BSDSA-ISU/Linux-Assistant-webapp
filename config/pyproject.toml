@@ -1,0 +1,17 @@
+[project]
+name = "linux-assistant-webapp"
+version = "0.1.0"
+description = "An AI assistant"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "ddgs>=9.14.4",
+    "dotenv>=0.9.9",
+    "flask>=3.1.3",
+    "flask-session>=0.8.0",
+    "google-genai>=2.8.0",
+]
+
+[tool.ty.environment]
+python = "/home/kogasa/projects/.venv/bin/python"  # Use .venv\Scripts\python.exe on Windows
+
