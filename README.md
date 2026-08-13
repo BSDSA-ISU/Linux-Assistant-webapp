@@ -10,7 +10,6 @@
 
 ![Minoriko](https://media1.tenor.com/m/kfCcMd9vCSgAAAAC/aki-minoriko-touhou.gif)
 
-
 ---
 
 ## What is this
